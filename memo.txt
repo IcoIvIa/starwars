@@ -1,0 +1,45 @@
+グローバル変数を整理する
+let loadingPromise
+let pageSearchCheck = { value: '' }
+
+検索中キャラかエンティティどっちを検索したかわかるようにする。
+
+検索結果を18件ごとにして、インフォビューに名前を羅列。　インフォビューの名前をクリックすればキャラボックスに飛ぶ。
+次の名前を表示するときはインフォビューのYESをクリックできるようにする
+…Display next page? (Y/N）
+…YES　…NO
+noを押したら　商品検索ページが出る　ちょっとしたコメントも
+
+インフォビューを縦スクロール形式に。
+
+スマホ表示対応
+
+翻訳中のローディング画面をピコピコ感にする
+
+ローディング画面のpタグネストを直す。
+
+react typescripttpircsepyt勉強
+
+
+
+SearchForm は何を受け取り、何を返す？
+ユーザーの検索文字列を受け取り、それを返す
+
+HologramList は何を表示する？
+なかには、名前（NAME)画像（IMG) 一画面にホログラムカード３つ
+
+HologramCard はどんな情報を持つ？
+名前（name）画像（img)　説明（）description）
+
+InfoView はどの状態を表示する？
+すべてのテキストをここに表示する。
+ローデング、名前（name）画像（img)　説明（）description）、初期の道しるべui、など。
+
+TranslateButton は何をトリガーする？
+どういう意味？
+
+LoadingOverlay はどの状態で表示される？
+api読み込み中
+
+App はどの状態を管理する？
+どういう意味？
