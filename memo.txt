@@ -43,3 +43,5 @@ api読み込み中
 
 App はどの状態を管理する？
 どういう意味？
+
+cd ~/Documents/javascript/webAPI課題/starwars/star-wars-react/
