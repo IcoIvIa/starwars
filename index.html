@@ -1,43 +1,13 @@
-<!DOCTYPE html>
-<html lang="ja">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>you must feel the Force around you…</title>
-    <link rel="stylesheet" href="./common.css">
-</head>
-
-<body>
-
-    <h1>you must feel the Force around you…</h1>
-    <div id="searchFormArea">
-        <input type="search" name="searchForm" id="searchForm">
-        <button id="charaSearchButton" class="searchButton">CHARACTER<br>scan…</button>
-        <button id="entitySearchButton" class="searchButton">ENTITY<br>scand…</button>
-        <div id="menu" class="hidden"><p>A protocol droid will handle the translation.</p></div>
-    </div>
-
-    <div id="charaDraw"></div>
-    <div id="infoView">
-        <h2 id="infoViewTitle">INFO VIEW</h2>
-        <div class="infoViewTextArea">
-            <img id="infoViewImg" src="" style="display:none;">
-            <p id="infoViewText">
-                スターウォーズの用語を検索できます。<br><br>キャラクターの検索は英語でテキストボックスに入力して「CHARACTER scan…」をクリックしてください。<br>　例：Skywalker<br><br>地名、組織名や乗り物の情報は英語でテキストボックスに入力して「ENTITY
-                scan…」クリックしてください<br>　例：jedi
-            </p>
-        </div>
-    </div>
-
-</body>
-
-
-<script src="https://code.jquery.com/jquery-4.0.0.js" integrity="sha256-9fsHeVnKBvqh3FB2HYu7g2xseAZ5MlN6Kz/qnkASV8U=" crossorigin="anonymous"></script>
-<script src="./js/common.js"></script>
-<script src="./js/api.search.js"></script>
-<script src="./js/charaSearch.js"></script>
-<script src="./js/entitySearch.js"></script>
-<script src="./js/translate.js"></script>
-
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>star-wars-react</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
