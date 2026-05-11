@@ -9,11 +9,20 @@ function App() {
     const [searchQuery, setSearchQuery] = useState('')
     const [screenState, setScreenState] = useState(0)
     const [clickedCategory,setClickedCategory] = useState('')
+    const [searchResult,setSearchResult] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
-    const handleSearch = (Category) => {
+    const handleSearch = async (Category) => {
         if(searchQuery === '') return
         setScreenState(1)
         setClickedCategory(Category)
+        setIsLoading(true)
+
+        const url = `https://starwars-databank-server.onrender.com/api/v1/characters?page=1`
+        const response = await fetch(url)
+        const date = await response.json()
+
+        console.log(date)
     }
 
   return (
