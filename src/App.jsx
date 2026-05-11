@@ -8,6 +8,13 @@ import SearchingScreen from './Components/SearchingScreen.jsx'
 function App() {
     const [searchQuery, setSearchQuery] = useState('')
     const [screenState, setScreenState] = useState(0)
+    const [clickedCategory,setClickedCategory] = useState('')
+
+    const handleSearch = (Category) => {
+        if(searchQuery === '') return
+        setScreenState(1)
+        setClickedCategory(Category)
+    }
 
   return (
 
@@ -21,11 +28,11 @@ function App() {
         />
         <button 
             id="charaSearchButton" className="searchButton"
-            onClick={() => setScreenState(1)}
+            onClick={() => handleSearch('character')}
         >CHARACTER<br />scan…</button>
         <button 
             id="entitySearchButton" className="searchButton"
-            onClick={() => setScreenState(1)}
+            onClick={() => handleSearch('entity')}
         >ENTITY<br />scand…</button>
         <div id="menu" className="hidden"><p>A protocol droid will handle the translation.</p></div>
     </div>
@@ -36,7 +43,7 @@ function App() {
         <div className="infoViewTextArea">
             <img id="infoViewImg" src={null} style={{display:'none'}} />
             {screenState === 0 && <FirstText />}
-            {screenState === 1 && <SearchingScreen searchQuery={searchQuery} />}
+            {screenState === 1 && <SearchingScreen searchQuery={searchQuery} clickedCategory ={clickedCategory} />}
         </div>
     </div>
 </div>

@@ -1,6 +1,9 @@
-function SearchingScreen ({searchQuery}) {
+function SearchingScreen({ searchQuery ,clickedCategory }) {
     return (
-        <p>Your scanned keyword : {searchQuery}</p>
+        <div>
+            <p>Your scanned keyword : {searchQuery}</p>
+            <p>Your scanned Category : {clickedCategory}</p>
+        </div>
     )
 }
 
