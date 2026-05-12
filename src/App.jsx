@@ -20,9 +20,16 @@ function App() {
 
         const url = `https://starwars-databank-server.onrender.com/api/v1/characters?page=1`
         const response = await fetch(url)
-        const date = await response.json()
+        const data = await response.json()
 
-        console.log(date)
+        const filterd = data.data.filter(element =>
+            element.name.toLowerCase().includes(searchQuery.toLocaleLowerCase())
+        )
+
+        console.log(data.data)
+        console.log(filterd)
+
+
     }
 
   return (
