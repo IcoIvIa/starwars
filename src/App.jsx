@@ -11,6 +11,14 @@ function App() {
     const [clickedCategory,setClickedCategory] = useState('')
     const [searchResult,setSearchResult] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    
+
+        const charaApiUrlAndPage = [
+        'https://starwars-databank-server.onrender.com/api/v1/characters?page=',
+        'https://starwars-databank-server.onrender.com/api/v1/creatures?page=',
+        'https://starwars-databank-server.onrender.com/api/v1/droids?page=',
+        'https://starwars-databank-server.onrender.com/api/v1/species?page=',
+    ];
 
     const handleSearch = async (Category) => {
         if(searchQuery === '') return
@@ -18,16 +26,47 @@ function App() {
         setClickedCategory(Category)
         setIsLoading(true)
 
-        const url = `https://starwars-databank-server.onrender.com/api/v1/characters?page=1`
-        const response = await fetch(url)
-        const data = await response.json()
+        
 
-        const filterd = data.data.filter(element =>
+        let page = 90
+        // ローディング対策
+        let data = []
+        const alldata = []
+  
+        // for debug
+        // const url = `https://starwars-databank-server.onrender.com/api/v1/characters?page=${page}`
+        // const response = await fetch(url)
+        // data = await response.json()
+        // Ziro 
+
+let hasMore = true
+
+while(hasMore){
+        const url = `https://starwars-databank-server.onrender.com/api/v1/characters?page=${page}`
+        const response = await fetch(url)
+        data = await response.json()
+        
+        if (data.info.next === null) {
+            hasMore = false 
+        }
+        alldata.push(...data.data)
+        // console.log(url)
+        // console.log(alldata.length)
+        page += 1
+
+}
+
+
+
+        const filterd = alldata.filter(element =>
             element.name.toLowerCase().includes(searchQuery.toLocaleLowerCase())
         )
+        
 
-        console.log(data.data)
+        // console.log(url)
+        // console.log(data.data)
         console.log(filterd)
+        // console.log(alldata)
 
 
     }
