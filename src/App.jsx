@@ -12,15 +12,13 @@ function App() {
     const [searchResult, setSearchResult] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
-
+    
     const characterApiUrlList = [
         'https://starwars-databank-server.onrender.com/api/v1/characters?page=',
         'https://starwars-databank-server.onrender.com/api/v1/creatures?page=',
         'https://starwars-databank-server.onrender.com/api/v1/droids?page=',
         'https://starwars-databank-server.onrender.com/api/v1/species?page=',
     ];
-
-    // TEST
   
     async function fetchAllPages(apiUrlList) {
         const result = []
