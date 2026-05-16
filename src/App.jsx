@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import FirstText from './Components/firsttext.jsx'
 import SearchingScreen from './Components/SearchingScreen.jsx'
@@ -9,15 +9,22 @@ function App() {
     const [searchQuery, setSearchQuery] = useState('')
     const [screenState, setScreenState] = useState(0)
     const [clickedCategory, setClickedCategory] = useState('')
-    const [searchResult, setSearchResult] = useState([])
+    const [allCharaData, setAllCharaData] = useState([])
+    const [allEntityData, setAllEntityData] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
-    
+            // 'https://starwars-databank-server.onrender.com/api/v1/characters?page=',
     const characterApiUrlList = [
-        'https://starwars-databank-server.onrender.com/api/v1/characters?page=',
+
         'https://starwars-databank-server.onrender.com/api/v1/creatures?page=',
         'https://starwars-databank-server.onrender.com/api/v1/droids?page=',
         'https://starwars-databank-server.onrender.com/api/v1/species?page=',
+    ];
+
+    const entityApiUrlList = [
+        'https://starwars-databank-server.onrender.com/api/v1/locations?page=',
+        'https://starwars-databank-server.onrender.com/api/v1/organizations?page=',
+        'https://starwars-databank-server.onrender.com/api/v1/vehicles?page=',
     ];
   
     async function fetchAllPages(apiUrlList) {
@@ -32,64 +39,50 @@ function App() {
                 const response = await fetch(url)
                 const data = await response.json()
 
+                // fordebug
+                console.log(`読み込みPAGE：${baseUrl}${page}`)
+
                 if (data.info.next === null) {
                     hasMore = false
                 }
                 result.push(...data.data)
-                page += 1
+                page +=1
 
-            }
+            }        
+            // fordebug
+            console.log(`${baseUrl} の要素数${result.length}`)
         } return result
     }
 
-    const handleSearch = async (Category) => {
+    useEffect(() => {
+        const fetchData = async () => {
+            const [charaData, entityData] = await Promise.all([
+                fetchAllPages(characterApiUrlList),
+                fetchAllPages(entityApiUrlList)
+            ])
+            setAllCharaData(charaData)
+            setAllEntityData(entityData)
+        // fordebug
+        console.log(`allCharaDataresult:${charaData.length}`)
+        console.log(`allentityDataresult:${entityData.length}`)
+        }
+        fetchData()
+
+    },[])
+
+    const handleSearch = async (category,allCategoryData) => {
         if (searchQuery === '') return
         setScreenState(1)
-        setClickedCategory(Category)
+        setClickedCategory(category)
         setIsLoading(true)
 
+        console.log(allCategoryData.length)
 
-
-        let page = 90
-        // ローディング対策
-        let data = []
-        const alldata = []
-
-        // for debug
-        // const url = `https://starwars-databank-server.onrender.com/api/v1/characters?page=${page}`
-        // const response = await fetch(url)
-        // data = await response.json()
-        // Ziro 
-
-        let hasMore = true
-
-        // while(hasMore){
-        //         const url = `https://starwars-databank-server.onrender.com/api/v1/characters?page=${page}`
-        //         const response = await fetch(url)
-        //         data = await response.json()
-
-        //         if (data.info.next === null) {
-        //             hasMore = false 
-        //         }
-        //         alldata.push(...data.data)
-        //         // console.log(url)
-        //         // console.log(alldata.length)
-        //         page += 1
-        // }
-
-
-
-        const filterd = alldata.filter(element =>
+        const filterd = allCategoryData.filter(element =>
             element.name.toLowerCase().includes(searchQuery.toLocaleLowerCase())
         )
-
-
-        // console.log(url)
-        // console.log(data.data)
+        // fordebug
         console.log(filterd)
-        // console.log(alldata)
-
-
     }
 
     return (
@@ -104,11 +97,11 @@ function App() {
                 />
                 <button
                     id="charaSearchButton" className="searchButton"
-                    onClick={() => handleSearch('character')}
+                    onClick={() => handleSearch('character',allCharaData)}
                 >CHARACTER<br />scan…</button>
                 <button
                     id="entitySearchButton" className="searchButton"
-                    onClick={() => handleSearch('entity')}
+                    onClick={() => handleSearch('entity',allEntityData)}
                 >ENTITY<br />scand…</button>
                 <div id="menu" className="hidden"><p>A protocol droid will handle the translation.</p></div>
             </div>
