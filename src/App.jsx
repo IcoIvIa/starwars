@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import FirstText from './Components/firsttext.jsx'
 import SearchingScreen from './Components/SearchingScreen.jsx'
-
-
+import SearchResult from './Components/SearchResult.jsx'
 
 function App() {
     const [searchQuery, setSearchQuery] = useState('')
@@ -12,10 +11,11 @@ function App() {
     const [allCharaData, setAllCharaData] = useState([])
     const [allEntityData, setAllEntityData] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [filteredData, setFilteredData] = useState([])
 
-            // 'https://starwars-databank-server.onrender.com/api/v1/characters?page=',
+
     const characterApiUrlList = [
-
+        'https://starwars-databank-server.onrender.com/api/v1/characters?page=',
         'https://starwars-databank-server.onrender.com/api/v1/creatures?page=',
         'https://starwars-databank-server.onrender.com/api/v1/droids?page=',
         'https://starwars-databank-server.onrender.com/api/v1/species?page=',
@@ -26,7 +26,22 @@ function App() {
         'https://starwars-databank-server.onrender.com/api/v1/organizations?page=',
         'https://starwars-databank-server.onrender.com/api/v1/vehicles?page=',
     ];
-  
+
+// テストデータ ---->
+    const dummyData = [
+  { _id: '001', name: 'Luke Skywalker', description: '...', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' },
+  { _id: '002', name: 'Darth Vader', description: '...', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' },
+]
+
+const isDev = true
+useEffect(() => {
+    if(isDev) {
+        setAllCharaData(dummyData)
+        setAllEntityData(dummyData)
+    } else {
+
+  }},[]) //テストデータ <----
+
     async function fetchAllPages(apiUrlList) {
         const result = []
 
@@ -54,21 +69,23 @@ function App() {
         } return result
     }
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const [charaData, entityData] = await Promise.all([
-                fetchAllPages(characterApiUrlList),
-                fetchAllPages(entityApiUrlList)
-            ])
-            setAllCharaData(charaData)
-            setAllEntityData(entityData)
-        // fordebug
-        console.log(`allCharaDataresult:${charaData.length}`)
-        console.log(`allentityDataresult:${entityData.length}`)
-        }
-        fetchData()
 
-    },[])
+    //  本番用
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const [charaData, entityData] = await Promise.all([
+    //             fetchAllPages(characterApiUrlList),
+    //             fetchAllPages(entityApiUrlList)
+    //         ])
+    //         setAllCharaData(charaData)
+    //         setAllEntityData(entityData)
+    //     // fordebug
+    //     console.log(`allCharaDataresult:${charaData.length}`)
+    //     console.log(`allentityDataresult:${entityData.length}`)
+    //     }
+    //     fetchData()
+
+    // },[])
 
     const handleSearch = async (category,allCategoryData) => {
         if (searchQuery === '') return
@@ -82,8 +99,13 @@ function App() {
             element.name.toLowerCase().includes(searchQuery.toLocaleLowerCase())
         )
         // fordebug
-        console.log(filterd)
+        console.log("CLICKED:",filterd)
+        console.log(category)
+        setFilteredData(filterd)
+        setScreenState(2)
+        setIsLoading(false)
     }
+
 
     return (
 
@@ -113,6 +135,7 @@ function App() {
                     <img id="infoViewImg" src={null} style={{ display: 'none' }} />
                     {screenState === 0 && <FirstText />}
                     {screenState === 1 && <SearchingScreen searchQuery={searchQuery} clickedCategory={clickedCategory} />}
+                    {screenState === 2 && <SearchResult filterd={filteredData} />}
                 </div>
             </div>
         </div>
