@@ -12,6 +12,7 @@ function App() {
     const [allEntityData, setAllEntityData] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [filteredData, setFilteredData] = useState([])
+    const [infoViewTitle, setInfoViewTitle] =useState('INFO VIEW')
 
 
     const characterApiUrlList = [
@@ -120,7 +121,7 @@ useEffect(() => {
                 <button
                     id="charaSearchButton" className="searchButton"
                     onClick={() => handleSearch('character',allCharaData)}
-                >CHARACTER<br />scan…</button>
+                >CHARACTER<br />scand…</button>
                 <button
                     id="entitySearchButton" className="searchButton"
                     onClick={() => handleSearch('entity',allEntityData)}
@@ -130,12 +131,16 @@ useEffect(() => {
 
             <div id="charaDraw"></div>
             <div id="infoView">
-                <h2 id="infoViewTitle">INFO VIEW</h2>
+                <h2 id="infoViewTitle">{infoViewTitle}</h2>
                 <div className="infoViewTextArea">
                     <img id="infoViewImg" src={null} style={{ display: 'none' }} />
                     {screenState === 0 && <FirstText />}
                     {screenState === 1 && <SearchingScreen searchQuery={searchQuery} clickedCategory={clickedCategory} />}
-                    {screenState === 2 && <SearchResult filterd={filteredData} />}
+                    {screenState === 2 && (
+                        <SearchResult 
+                            filteredData={filteredData} 
+                            setInfoViewTitle={setInfoViewTitle}
+                            />)}
                 </div>
             </div>
         </div>
