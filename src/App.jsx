@@ -3,6 +3,7 @@ import './App.css'
 import FirstText from './Components/firsttext.jsx'
 import SearchingScreen from './Components/SearchingScreen.jsx'
 import SearchResult from './Components/SearchResult.jsx'
+import CharaBox from './Components/CharaBox.jsx'
 
 function App() {
     const [searchQuery, setSearchQuery] = useState('')
@@ -30,7 +31,7 @@ function App() {
 
 // テストデータ ---->
     const dummyData = [
-  { _id: '001', name: 'Luke Skywalker', description: '...', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' },
+  { _id: '001', name: 'Luke Skywalker', description: '.......................................................................', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' },
   { _id: '002', name: 'Darth Vader', description: '...', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' },
 ]
 
@@ -129,11 +130,12 @@ useEffect(() => {
                 <div id="menu" className="hidden"><p>A protocol droid will handle the translation.</p></div>
             </div>
 
-            <div id="charaDraw"></div>
+            <div id="charaDraw">
+                {filteredData.length > 0 && <CharaBox filteredData={filteredData} />}
+            </div>
             <div id="infoView">
                 <h2 id="infoViewTitle">{infoViewTitle}</h2>
-                <div className="infoViewTextArea">
-                    <img id="infoViewImg" src={null} style={{ display: 'none' }} />
+                <div>
                     {screenState === 0 && <FirstText />}
                     {screenState === 1 && <SearchingScreen searchQuery={searchQuery} clickedCategory={clickedCategory} />}
                     {screenState === 2 && (

@@ -332,13 +332,12 @@
                 0 0 2px #8a7400;
         }
         #infoViewImg {
-            display: none;
-            order: 2;
             object-fit: cover;
             width: 50vw;
             max-width: 500px;
             border-radius: 8px;
             border: 2px solid #555;
+            order: 2;
         }
         #infoViewText {
             order: 1;

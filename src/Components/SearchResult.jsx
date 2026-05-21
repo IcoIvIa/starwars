@@ -7,10 +7,12 @@ function SearchResult({ filteredData,setInfoViewTitle }){
         setInfoViewTitle(filteredData[0].name)
     },[])
     return(
-        <div>
-            <p></p>
-            <p>{filteredData[0].description}</p>
-            <img src={filteredData[0].image} alt={`${filteredData[0].name}'s Image`} />
+        <div id="infoViewTextAreaImgFlex" className="infoViewTextArea">
+            <p id="infoViewText">{filteredData[0].description}</p>
+            <img 
+            id="infoViewImg"
+            src={filteredData[0].image} 
+            alt={`${filteredData[0].name}'s Image`} />
         </div>
     )
 };
