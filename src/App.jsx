@@ -14,6 +14,7 @@ function App() {
     const [isLoading, setIsLoading] = useState(false)
     const [filteredData, setFilteredData] = useState([])
     const [infoViewTitle, setInfoViewTitle] =useState('INFO VIEW')
+    const [clickedCharaData , setClickedCharaData] =useState(null)
 
 
     const characterApiUrlList = [
@@ -31,8 +32,11 @@ function App() {
 
 // テストデータ ---->
     const dummyData = [
-  { _id: '001', name: 'Luke Skywalker', description: '.......................................................................', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' },
-  { _id: '002', name: 'Darth Vader', description: '...', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' },
+  { _id: '001', name: 'Luke Skywalker', description: '1......................................................................', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' },
+    { _id: '002', name: 'Luke Skywalker2', description: '2......................................................................', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' },
+      { _id: '003', name: 'Luke Skywalker3', description: '3......................................................................', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' },
+        { _id: '004', name: 'Luke Skywalker4', description: '4......................................................................', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' },
+  { _id: '005', name: 'Darth Vader', description: '...', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' },
 ]
 
 const isDev = true
@@ -131,16 +135,21 @@ useEffect(() => {
             </div>
 
             <div id="charaDraw">
-                {filteredData.length > 0 && <CharaBox filteredData={filteredData} />}
+                {filteredData.length > 0 &&  (
+                    <CharaBox 
+                    filteredData={filteredData} 
+                    setClickedCharaData={setClickedCharaData}
+                    setInfoViewTitle={setInfoViewTitle}
+                    />)}
             </div>
             <div id="infoView">
                 <h2 id="infoViewTitle">{infoViewTitle}</h2>
                 <div>
                     {screenState === 0 && <FirstText />}
                     {screenState === 1 && <SearchingScreen searchQuery={searchQuery} clickedCategory={clickedCategory} />}
-                    {screenState === 2 && (
+                    {screenState === 2 && clickedCharaData !== null && (
                         <SearchResult 
-                            filteredData={filteredData} 
+                            clickedCharaData={clickedCharaData} 
                             setInfoViewTitle={setInfoViewTitle}
                             />)}
                 </div>

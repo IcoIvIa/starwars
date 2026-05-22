@@ -1,13 +1,24 @@
-function CharaBox(filteredData){
-    
-    return(
-    <div
-        id = "charaDraw"
-        className="charaBox">
-        <img className="charaImg" src={filteredData.filteredData[0].image} aria-hidden="true"/>
-        <p className="charaDrawHeader">{filteredData.filteredData[0].name}</p> 
 
-    </div>
+function CharaBox({ filteredData, setClickedCharaData, setInfoViewTitle }) {
+
+    return (
+        <>
+            {filteredData.map((charaCard) => (
+                <div key={charaCard._id}
+                    className="charaBox"
+                    onClick={() => {
+                        setClickedCharaData(charaCard)
+                        if (charaCard.name) {
+                            setInfoViewTitle(charaCard.name)
+                        }
+                    }}>
+                    <img className="charaImg" src={charaCard.image} aria-hidden="true" />
+                    <p className="charaDrawHeader">{charaCard.name}</p>
+                </div>
+
+            ))}
+
+        </>
     );
 }
 

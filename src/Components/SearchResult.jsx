@@ -1,18 +1,17 @@
 import { useEffect } from "react";
 
-function SearchResult({ filteredData,setInfoViewTitle }){
-    console.log(filteredData)
+function SearchResult({ clickedCharaData }){
+    console.log(clickedCharaData)
 
     useEffect(() => {
-        setInfoViewTitle(filteredData[0].name)
     },[])
     return(
         <div id="infoViewTextAreaImgFlex" className="infoViewTextArea">
-            <p id="infoViewText">{filteredData[0].description}</p>
+            <p id="infoViewText">{clickedCharaData.description}</p>
             <img 
             id="infoViewImg"
-            src={filteredData[0].image} 
-            alt={`${filteredData[0].name}'s Image`} />
+            src={clickedCharaData.image} 
+            alt={`${clickedCharaData.name}'s Image`} />
         </div>
     )
 };
