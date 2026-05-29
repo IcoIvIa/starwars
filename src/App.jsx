@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState ,useReducer } from 'react'
 import './App.css'
 import FirstText from './Components/firsttext.jsx'
 import SearchingScreen from './Components/SearchingScreen.jsx'
@@ -9,31 +9,45 @@ import { useFetchData } from '../src/hooks/useFetchData.js'
 function App() {
     const { allCharaData, allEntityData, isApiLoading } = useFetchData()
     const [searchQuery, setSearchQuery] = useState('')
-    const [screenState, setScreenState] = useState(0)
-    const [clickedCategory, setClickedCategory] = useState('')
 
-    const [isLoading, setIsLoading] = useState(false)
-    const [filteredData, setFilteredData] = useState([])
-    const [infoViewTitle, setInfoViewTitle] =useState('INFO VIEW')
-    const [clickedCharaData , setClickedCharaData] =useState(null)
+    const initialState = {
+        screen: 'idle',
+        isLoading: false,
+        category: '',
+        filteredData: [],
+        clickedCharaData: null,
+        infoViewTitle: 'INFO VIEW',
+    }
 
-    const handleSearch = async (category,allCategoryData) => {
+    function reducer(state, action) {
+        switch(action.type) {
+            case 'SEARCH_START':
+                return {...state, screen: 'searching' , isLoading: true, category: action.category}
+            case 'SEARCH_DONE':
+                return {...state, screen: 'results', isLoading: false, filteredData: action.data}
+            case 'SELECT_CHARA':
+                return { ...state, clickedCharaData: action.chara, infoViewTitle: action.title }
+            default:
+                return state
+        }
+    }
+
+    const [state, dispatch] = useReducer(reducer, initialState)
+
+    const handleSearch = async (category, allCategoryData) => {
         if (searchQuery === '') return
-        setScreenState(1)
-        setClickedCategory(category)
-        setIsLoading(true)
+        dispatch({ type: 'SEARCH_START', category })
 
+        // fordebug
         console.log(allCategoryData.length)
 
-        const filterd = allCategoryData.filter(element =>
-            element.name.toLowerCase().includes(searchQuery.toLocaleLowerCase())
+        setTimeout(() =>{
+                    const filtered = allCategoryData.filter(element =>
+            element.name.toLowerCase().includes(searchQuery.toLowerCase())
         )
-        // fordebug
-        console.log("CLICKED:",filterd)
-        console.log(category)
-        setFilteredData(filterd)
-        setScreenState(2)
-        setIsLoading(false)
+        dispatch({ type: 'SEARCH_DONE', data: filtered })
+        },1000)
+
     }
 
 
@@ -41,41 +55,57 @@ function App() {
 
         <div>
             <h1>you must feel the Force around you…</h1>
+
             <div id="searchFormArea">
                 <input
-                    type="search" name="searchForm" id="searchForm"
+                    type="search"
+                    name="searchForm" 
+                    id="searchForm"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 <button
-                    id="charaSearchButton" className="searchButton"
-                    onClick={() => handleSearch('character',allCharaData)}
+                    id="charaSearchButton"
+                    className="searchButton"
+                    onClick={() => handleSearch('character', allCharaData)}
                 >CHARACTER<br />scand…</button>
+
                 <button
-                    id="entitySearchButton" className="searchButton"
-                    onClick={() => handleSearch('entity',allEntityData)}
+                    id="entitySearchButton"
+                    className="searchButton"
+                    onClick={() => handleSearch('entity', allEntityData)}
                 >ENTITY<br />scand…</button>
-                <div id="menu" className="hidden"><p>A protocol droid will handle the translation.</p></div>
+
+                <div id="menu" className="hidden">
+                    <p>A protocol droid will handle the translation.</p>
+                </div>
             </div>
 
             <div id="charaDraw">
-                {filteredData.length > 0 &&  (
-                    <CharaBox 
-                    filteredData={filteredData} 
-                    setClickedCharaData={setClickedCharaData}
-                    setInfoViewTitle={setInfoViewTitle}
-                    />)}
+                {state.filteredData.length > 0 && (
+                    <CharaBox
+                        filteredData={state.filteredData}
+                        dispatch={dispatch}
+                    />
+                    )}
             </div>
+
             <div id="infoView">
-                <h2 id="infoViewTitle">{infoViewTitle}</h2>
+                <h2 id="infoViewTitle">{state.infoViewTitle}</h2>
+
                 <div>
-                    {screenState === 0 && <FirstText />}
-                    {screenState === 1 && <SearchingScreen searchQuery={searchQuery} clickedCategory={clickedCategory} />}
-                    {screenState === 2 && clickedCharaData !== null && (
-                        <SearchResult 
-                            clickedCharaData={clickedCharaData} 
-                            setInfoViewTitle={setInfoViewTitle}
-                            />)}
+                    {state.screen === 'idle' && <FirstText />}
+                    {state.screen === 'searching' && (
+                        <SearchingScreen 
+                            searchQuery={searchQuery}
+                            clickedCategory={state.category} 
+                            />
+                        )}
+                    {state.screen === 'results' && 
+                        state.clickedCharaData !== null && (
+                        <SearchResult
+                            clickedCharaData={state.clickedCharaData}
+                        />)}
                 </div>
             </div>
         </div>

@@ -1,10 +1,7 @@
-import { useEffect } from "react";
 
 function SearchResult({ clickedCharaData }){
     console.log(clickedCharaData)
 
-    useEffect(() => {
-    },[])
     return(
         <div id="infoViewTextAreaImgFlex" className="infoViewTextArea">
             <p id="infoViewText">{clickedCharaData.description}</p>

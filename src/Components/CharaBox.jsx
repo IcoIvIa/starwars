@@ -1,18 +1,19 @@
 
-function CharaBox({ filteredData, setClickedCharaData, setInfoViewTitle }) {
+function CharaBox({ filteredData, dispatch }) {
 
     return (
         <>
             {filteredData.map((charaCard) => (
                 <div key={charaCard._id}
                     className="charaBox"
-                    onClick={() => {
-                        setClickedCharaData(charaCard)
-                        if (charaCard.name) {
-                            setInfoViewTitle(charaCard.name)
-                        }
-                    }}>
-                    <img className="charaImg" src={charaCard.image} aria-hidden="true" />
+                    onClick={() => 
+                        dispatch({
+                            type: 'SELECT_CHARA',
+                            chara: charaCard,
+                            title: charaCard.name
+                        })
+                    }>
+                    <img className="charaImg" src={charaCard.image} alt="" />
                     <p className="charaDrawHeader">{charaCard.name}</p>
                 </div>
 
