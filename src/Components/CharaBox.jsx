@@ -1,6 +1,8 @@
 
 function CharaBox({ filteredData, dispatch }) {
 
+    // fordebug
+    // console.log(filteredData)
     return (
         <>
             {filteredData.map((charaCard) => (

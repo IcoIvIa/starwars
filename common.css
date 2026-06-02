@@ -19,16 +19,22 @@
             min-height: 100vh;
             font-family: "Arial", "Osaka", sans-serif;
         }
+
         /*  ローディング中に表示する */
         body.loading::before {
             content: "";
             position: fixed;
-            background-image: url(./loding.gif/warp-space.gif);
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/src/assets/warp-space.gif');
             background-size: cover;
             background-position: center;
             opacity: 0.2;
             z-index: -1;
         }
+
+
         /* 星*/
         body::before {
             content: "";
@@ -88,12 +94,14 @@
             padding-left: 20px;
             padding-right: 20px;
         }
+
         #searchForm {
             width: 250px;
             padding: 8px;
             border-radius: 2px;
             border: none;
         }
+
         .searchButton {
             padding: 10px 15px;
             border-radius: 2px;
@@ -102,18 +110,23 @@
             color: #fff;
             cursor: pointer;
         }
+
         #charaSearchButton {
             background-color: rgba(72, 133, 255, 0.5);
         }
+
         #charaSearchButton:hover {
             background: rgba(72, 133, 255, 0.25);
         }
+
         #entitySearchButton {
             background-color: rgba(255, 80, 80, 0.5);
         }
+
         #entitySearchButton:hover {
             background: rgba(255, 80, 80, 0.25);
         }
+
         #menu {
             margin-left: auto;
             padding: 8px 30px;
@@ -126,23 +139,29 @@
             font-family: "Segoe UI", sans-serif;
             animation: shine 2.5s ease-in-out infinite;
         }
+
         .hidden {
             display: none;
         }
+
         .show {
             display: block;
         }
+
         @keyframes shine {
             0% {
                 filter: brightness(0.875);
             }
+
             50% {
                 filter: brightness(0.95);
             }
+
             100% {
                 filter: brightness(0.85);
             }
         }
+
         #menu:hover {
             background-color: #8c6b1f;
         }
@@ -159,6 +178,7 @@
             white-space: nowrap;
             height: 200px;
         }
+
         /* ホログラム本体 */
         .charaBox {
             flex: 0 0 auto;
@@ -171,6 +191,7 @@
             position: relative;
             overflow: hidden;
         }
+
         /* ホログラム光 */
         .charaBox::before {
             content: "";
@@ -188,6 +209,7 @@
             opacity: 0.9;
             pointer-events: none;
         }
+
         /* ホログラムの走査線 */
         .charaBox::after {
             content: "";
@@ -200,6 +222,7 @@
             opacity: 0.25;
             pointer-events: none;
         }
+
         .charaBox:hover::after {
             content: "";
             position: absolute;
@@ -211,6 +234,7 @@
             opacity: 0.7;
             pointer-events: none;
         }
+
         /* ↓entityを赤色にする↓ */
         /* ホログラム本体 */
         .charaBoxRed {
@@ -223,6 +247,7 @@
             position: relative;
             overflow: hidden;
         }
+
         /* ホログラム光 */
         .charaBoxRed::before {
             content: "";
@@ -243,6 +268,7 @@
             opacity: 0.9;
             pointer-events: none;
         }
+
         /* ホログラムの走査線 */
         .charaBoxRed::after {
             content: "";
@@ -255,6 +281,7 @@
             opacity: 0.25;
             pointer-events: none;
         }
+
         .charaBoxRed:hover::after {
             content: "";
             position: absolute;
@@ -266,6 +293,7 @@
             opacity: 0.7;
             pointer-events: none;
         }
+
         /* ↑終わり */
         .charaDrawHeader {
             display: flex;
@@ -274,16 +302,19 @@
             gap: 2px;
             color: #ffffff;
         }
+
         .charaImg {
             width: 50%;
             height: auto;
             border-radius: 8px;
             object-fit: cover;
         }
+
         .name {
             font-size: 1.4rem;
             flex: 1;
         }
+
         .description {
             margin-top: 15px;
             line-height: 1.6;
@@ -294,6 +325,7 @@
             position: relative;
             display: inline-block;
         }
+
         #infoViewTitle::before,
         #infoViewTitle::after {
             content: "";
@@ -306,18 +338,21 @@
                     #8a7400 60%,
                     transparent 100%);
         }
+
         #infoViewTitle::before {
             right: 100%;
             margin-right: 10px;
             transform: scaleX(-1);
             width: 7px;
         }
+
         #infoViewTitle::after {
             left: 100%;
             margin-left: 10px;
             width: 700px;
             /* ラインの長さ */
         }
+
         #infoViewTitle,
         h1 {
             color: #000;
@@ -331,6 +366,7 @@
                 2px 2px 0 #d0a900,
                 0 0 2px #8a7400;
         }
+
         #infoViewImg {
             object-fit: cover;
             width: 50vw;
@@ -339,6 +375,7 @@
             border: 2px solid #555;
             order: 2;
         }
+
         #infoViewText {
             order: 1;
             flex: 1;
@@ -349,12 +386,15 @@
             overflow-wrap: break-word;
             display: block;
         }
+
         .infoViewTextArea {
             gap: 20px;
         }
+
         #infoViewTextAreaImgFlex {
             display: flex;
         }
+
         #infoView {
             padding-left: 20px;
             padding-right: 20px;
