@@ -2,6 +2,7 @@ import { useEffect, useState, useReducer } from 'react'
 import './App.css'
 import FirstText from './Components/firsttext.jsx'
 import SearchingScreen from './Components/SearchingScreen.jsx'
+import SearchEnd from './Components/SearchEnd .jsx'
 import SearchResult from './Components/SearchResult.jsx'
 import CharaBox from './Components/CharaBox.jsx'
 import { useFetchData } from '../src/hooks/useFetchData.js'
@@ -156,6 +157,8 @@ function App() {
                             onComplete={() => dispatch({ type: 'SEARCH_DONE', data: state.filteredResult })}
                         />
                     )}
+                    {state.screen === 'results' && state.clickedCharaData === null && <SearchEnd />}
+                            
                     {state.screen === 'results' &&
                         state.clickedCharaData !== null && (
                             <SearchResult
