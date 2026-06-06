@@ -7,6 +7,7 @@ import SearchResult from './Components/SearchResult.jsx'
 import CharaBox from './Components/CharaBox.jsx'
 import { useFetchData } from '../src/hooks/useFetchData.js'
 import SearchingImg from './assets/warp-space.gif'
+import TranslationMenu from './Components/TranslationMenu.jsx'
 
 function App() {
     const { allCharaData, allEntityData, isApiLoading } = useFetchData()
@@ -76,7 +77,7 @@ function App() {
         })
 
         // fordebug
-        console.log(allCategoryData.length)
+        // console.log(allCategoryData.length)
 
         // setTimeout(() => {
 
@@ -130,9 +131,9 @@ function App() {
                     onClick={() => handleSearch('entity', allEntityData)}
                 >ENTITY<br />scand…</button>
 
-                <div id="menu" className="hidden">
-                    <p>A protocol droid will handle the translation.</p>
-                </div>
+                    {state.screen === 'results' &&
+                        state.clickedCharaData !== null && (
+                            <TranslationMenu/>)}
             </div>
 
             <div id="charaDraw">
@@ -140,6 +141,7 @@ function App() {
                     <CharaBox
                         filteredData={state.filteredData}
                         dispatch={dispatch}
+                        clickedCategory={state.category}
                     />
                 )}
             </div>
