@@ -15,7 +15,7 @@ const entityApiUrlList = [
 
 // テストデータ ---->
 const dummyData = [
-    { _id: '001', name: 'Luke Skywalker', description: '1......................................................................', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' },
+    { _id: '001', name: 'Luke Skywalker', description: 'Luke Skywalker was a legendary Jedi Master who fought in the Galactic Civil War. He was the son of Anakin Skywalker and Padmé Amidala, and the twin brother of Leia Organa.', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' },
     { _id: '002', name: 'Luke Skywalker2', description: '2......................................................................', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' },
     { _id: '003', name: 'Luke Skywalker3', description: '3......................................................................', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' },
     { _id: '004', name: 'Luke Skywalker4', description: '4......................................................................', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' },

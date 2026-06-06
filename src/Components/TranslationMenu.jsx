@@ -1,9 +1,8 @@
-function TranslationMenu() {
+function TranslationMenu( {clickedCharaData , handleTranslation} ) {
 
     const fadeInStyle = {
         animation: "fadeIn 2s ease-in"
     };
-
     const keyframes = `
   @keyframes fadeIn {
     from { opacity: 0; }
@@ -15,7 +14,9 @@ function TranslationMenu() {
         <>
             <style>{keyframes}</style>
             <div id="menu" style={fadeInStyle}>
-                <p>A protocol droid will handle the translation.</p>
+                <p onClick={() => handleTranslation(clickedCharaData.description)}>
+                    A protocol droid will handle the translation.
+                </p>
             </div>
         </>
     )

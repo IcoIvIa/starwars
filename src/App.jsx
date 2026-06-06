@@ -21,6 +21,7 @@ function App() {
         hitCount: 0,
         clickedCharaData: null,
         infoViewTitle: 'INFO VIEW',
+        translatText: ''
     }
 
     function reducer(state, action) {
@@ -32,7 +33,9 @@ function App() {
                     isLoading: true,
                     category: action.category,
                     hitCount: action.hitCount,
-                    filteredResult: action.filteredResult 
+                    filteredResult: action.filteredResult,
+                    filteredData: [],
+                    clickedCharaData: null,
                 }
             case 'SEARCH_DONE':
                 return {
@@ -45,10 +48,29 @@ function App() {
                 return {
                     ...state,
                     clickedCharaData: action.chara,
-                    infoViewTitle: action.title
+                    infoViewTitle: action.title,
+                    translatText: ''
+                }
+            case 'TRANSLAT_START':
+                return {
+                    ...state,
+                    isLoading: true,
+                }
+            case 'TRANSLAT_DONE':
+                return {
+                    ...state,
+                    isLoading: false,
+                    translatText: action.translatText
+                }
+            case 'TRANSLAT_ERROR':
+                return {
+                    ...state,
+                    isLoading: false
                 }
             default:
-                return state
+                return {
+                    ...state,
+                }
         }
     }
 
@@ -75,13 +97,61 @@ function App() {
             hitCount: filtered.length,
             filteredResult: filtered
         })
+    }
 
+    const handleTranslation = async (clickedCharaData) => {
+        dispatch({ type: 'TRANSLAT_START', })
+
+        try {
+            const spaceStr = [' ', '　'];
+            let translatText = "";
+            const translateTextsplice = [];
+
+            for (const str of clickedCharaData) {
+                translatText = translatText + str;
+                if (spaceStr.includes(str) && translatText.length > 200) {
+                    translateTextsplice.push(translatText);
+                    translatText = "";
+                }
+            }
+            if (translatText.length > 0) {
+                translateTextsplice.push(translatText);
+            }
+
+            let result = "";
+            for (const element of translateTextsplice) {
+                result += await translating(element);
+            }
+            dispatch({
+                translatText: result,
+                type: 'TRANSLAT_DONE',
+                isLoading: false
+            })
+        } catch (error) {
+            console.error('データ取得エラー:', error);
+            dispatch({
+                type: 'TRANSLAT_ERROR',
+                isLoading: false
+            })
+        }
+
+        async function translating(text) {
+            const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|ja`;
+
+            try {
+                const responce = await fetch(url);
+                const result = await responce.json();
+                return result.responseData.translatedText;
+            } catch (error) {
+                console.error('データ取得エラー:', error);
+            }
+        }
         // fordebug
         // console.log(allCategoryData.length)
 
         // setTimeout(() => {
 
-            // dispatch({ type: 'SEARCH_DONE', data: filtered })
+        // dispatch({ type: 'SEARCH_DONE', data: filtered })
         // }, 1000)
 
     }
@@ -131,9 +201,12 @@ function App() {
                     onClick={() => handleSearch('entity', allEntityData)}
                 >ENTITY<br />scand…</button>
 
-                    {state.screen === 'results' &&
-                        state.clickedCharaData !== null && (
-                            <TranslationMenu/>)}
+                {state.screen === 'results' &&
+                    state.clickedCharaData !== null && (
+                        <TranslationMenu
+                            clickedCharaData={state.clickedCharaData}
+                            handleTranslation={handleTranslation}
+                        />)}
             </div>
 
             <div id="charaDraw">
@@ -160,16 +233,19 @@ function App() {
                         />
                     )}
                     {state.screen === 'results' && state.clickedCharaData === null && <SearchEnd />}
-                            
+
                     {state.screen === 'results' &&
                         state.clickedCharaData !== null && (
                             <SearchResult
                                 clickedCharaData={state.clickedCharaData}
+                                translatText={state.translatText
+                                }
                             />)}
                 </div>
             </div>
         </div>
     )
 }
+
 
 export default App

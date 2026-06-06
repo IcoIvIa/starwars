@@ -1,10 +1,13 @@
 
-function SearchResult({ clickedCharaData }){
+function SearchResult({ clickedCharaData , translatText }){
     console.log(clickedCharaData)
 
     return(
         <div id="infoViewTextAreaImgFlex" className="infoViewTextArea">
-            <p id="infoViewText">{clickedCharaData.description}</p>
+            <p id="infoViewText">
+                {translatText === ''
+                ? clickedCharaData.description
+                :translatText }</p>
             <img 
             id="infoViewImg"
             src={clickedCharaData.image} 
