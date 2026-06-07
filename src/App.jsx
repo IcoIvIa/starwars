@@ -8,6 +8,19 @@ import CharaBox from './Components/CharaBox.jsx'
 import { useFetchData } from '../src/hooks/useFetchData.js'
 import SearchingImg from './assets/warp-space.gif'
 import TranslationMenu from './Components/TranslationMenu.jsx'
+import FetchDataLoding from './Components/FetchDataLoding.jsx'
+
+        async function translating(text) {
+            const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|ja`;
+
+            try {
+                const response = await fetch(url);
+                const result = await response.json();
+                return result.responseData.translatedText;
+            } catch (error) {
+                console.error('データ取得エラー:', error);
+            }
+        }
 
 function App() {
     const { allCharaData, allEntityData, isApiLoading } = useFetchData()
@@ -84,7 +97,7 @@ function App() {
         }
     }, [state.isLoading])
 
-    const handleSearch = async (category, allCategoryData) => {
+    const handleSearch = (category, allCategoryData) => {
         if (searchQuery === '') return
 
         const filtered = allCategoryData.filter(element =>
@@ -99,7 +112,7 @@ function App() {
         })
     }
 
-    const handleTranslation = async (clickedCharaData) => {
+    const handleTranslation = async (description) => {
         dispatch({ type: 'TRANSLAT_START', })
 
         try {
@@ -107,7 +120,9 @@ function App() {
             let translatText = "";
             const translateTextsplice = [];
 
-            for (const str of clickedCharaData) {
+            for (const str of description
+
+            ) {
                 translatText = translatText + str;
                 if (spaceStr.includes(str) && translatText.length > 200) {
                     translateTextsplice.push(translatText);
@@ -135,32 +150,9 @@ function App() {
             })
         }
 
-        async function translating(text) {
-            const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|ja`;
-
-            try {
-                const responce = await fetch(url);
-                const result = await responce.json();
-                return result.responseData.translatedText;
-            } catch (error) {
-                console.error('データ取得エラー:', error);
-            }
-        }
-        // fordebug
-        // console.log(allCategoryData.length)
-
-        // setTimeout(() => {
-
-        // dispatch({ type: 'SEARCH_DONE', data: filtered })
-        // }, 1000)
-
     }
 
-
     return (
-
-
-
 
         <div>
 
@@ -241,6 +233,8 @@ function App() {
                                 translatText={state.translatText
                                 }
                             />)}
+
+                    <FetchDataLoding />
                 </div>
             </div>
         </div>

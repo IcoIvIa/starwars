@@ -21,6 +21,7 @@
             padding-left: 20px;
             padding-top: 20px;
         }
+
         /*  ローディング中に表示する */
         body.loading::before {
             content: "";
@@ -31,6 +32,7 @@
             opacity: 0.2;
             z-index: -1;
         }
+
         /* 星*/
         body::before {
             content: "";
@@ -90,12 +92,14 @@
             padding-left: 20px;
             padding-right: 20px;
         }
+
         #searchForm {
             width: 250px;
             padding: 8px;
             border-radius: 2px;
             border: none;
         }
+
         .searchButton {
             padding: 10px 15px;
             border-radius: 2px;
@@ -104,18 +108,23 @@
             color: #fff;
             cursor: pointer;
         }
+
         #charaSearchButton {
             background-color: rgba(72, 133, 255, 0.5);
         }
+
         #charaSearchButton:hover {
             background: rgba(72, 133, 255, 0.25);
         }
+
         #entitySearchButton {
             background-color: rgba(255, 80, 80, 0.5);
         }
+
         #entitySearchButton:hover {
             background: rgba(255, 80, 80, 0.25);
         }
+
         #menu {
             margin-left: auto;
             padding: 8px 30px;
@@ -128,23 +137,29 @@
             font-family: "Segoe UI", sans-serif;
             animation: shine 2.5s ease-in-out infinite;
         }
+
         .hidden {
             display: none;
         }
+
         .show {
             display: block;
         }
+
         @keyframes shine {
             0% {
                 filter: brightness(0.875);
             }
+
             50% {
                 filter: brightness(0.95);
             }
+
             100% {
                 filter: brightness(0.85);
             }
         }
+
         #menu:hover {
             background-color: #8c6b1f;
         }
@@ -161,6 +176,7 @@
             white-space: nowrap;
             height: 200px;
         }
+
         /* ホログラム本体 */
         .charaBox {
             flex: 0 0 auto;
@@ -173,6 +189,7 @@
             position: relative;
             overflow: hidden;
         }
+
         /* ホログラム光 */
         .charaBox::before {
             content: "";
@@ -190,6 +207,7 @@
             opacity: 0.9;
             pointer-events: none;
         }
+
         /* ホログラムの走査線 */
         .charaBox::after {
             content: "";
@@ -202,6 +220,7 @@
             opacity: 0.25;
             pointer-events: none;
         }
+
         .charaBox:hover::after {
             content: "";
             position: absolute;
@@ -213,6 +232,7 @@
             opacity: 0.7;
             pointer-events: none;
         }
+
         /* ↓entityを赤色にする↓ */
         /* ホログラム本体 */
         .charaBoxRed {
@@ -225,6 +245,7 @@
             position: relative;
             overflow: hidden;
         }
+
         /* ホログラム光 */
         .charaBoxRed::before {
             content: "";
@@ -245,6 +266,7 @@
             opacity: 0.9;
             pointer-events: none;
         }
+
         /* ホログラムの走査線 */
         .charaBoxRed::after {
             content: "";
@@ -257,6 +279,7 @@
             opacity: 0.25;
             pointer-events: none;
         }
+
         .charaBoxRed:hover::after {
             content: "";
             position: absolute;
@@ -268,6 +291,7 @@
             opacity: 0.7;
             pointer-events: none;
         }
+
         /* ↑終わり */
         .charaDrawHeader {
             display: flex;
@@ -276,16 +300,19 @@
             gap: 2px;
             color: #ffffff;
         }
+
         .charaImg {
             width: 50%;
             height: auto;
             border-radius: 8px;
             object-fit: cover;
         }
+
         .name {
             font-size: 1.4rem;
             flex: 1;
         }
+
         .description {
             margin-top: 15px;
             line-height: 1.6;
@@ -296,6 +323,7 @@
             position: relative;
             display: inline-block;
         }
+
         #infoViewTitle::before,
         #infoViewTitle::after {
             content: "";
@@ -308,18 +336,21 @@
                     #8a7400 60%,
                     transparent 100%);
         }
+
         #infoViewTitle::before {
             right: 100%;
             margin-right: 10px;
             transform: scaleX(-1);
             width: 7px;
         }
+
         #infoViewTitle::after {
             left: 100%;
             margin-left: 10px;
             width: 700px;
             /* ラインの長さ */
         }
+
         #infoViewTitle,
         h1 {
             color: #000;
@@ -333,6 +364,7 @@
                 2px 2px 0 #d0a900,
                 0 0 2px #8a7400;
         }
+
         #infoViewImg {
             order: 2;
             object-fit: cover;
@@ -341,6 +373,7 @@
             border-radius: 8px;
             border: 2px solid #555;
         }
+
         #infoViewText {
             order: 1;
             flex: 1;
@@ -351,13 +384,134 @@
             overflow-wrap: break-word;
             display: block;
         }
+
         .infoViewTextArea {
             gap: 20px;
         }
+
         #infoViewTextAreaImgFlex {
             display: flex;
         }
+
         #infoView {
             padding-left: 20px;
             padding-right: 20px;
+        }
+
+        /* 点滅アニメ */
+        .upperLeftSquare,
+        .lowerLeftSquare,
+        .upperRightSquare,
+        .lowerRightSquare {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+
+        .upperLeftSquare {
+            animation: blink-green 2.1s ease-in-out infinite 0.0s;
+        }
+
+        .upperRightSquare {
+            animation: blink-green 2.1s ease-in-out infinite 0.2s;
+        }
+
+        .lowerLeftSquare {
+            animation: blink-red 1.4s ease-in-out infinite 0.4s;
+        }
+
+        .lowerRightSquare {
+            animation: blink-red 1.4s ease-in-out infinite 0.6s;
+        }
+
+        @keyframes blink-red {
+
+            0%,
+            100% {
+                background-color: #c0392b;
+                box-shadow: 0 0 6px #e74c3c;
+            }
+
+            50% {
+                background-color: #7b0000;
+                box-shadow: none;
+            }
+        }
+
+        @keyframes blink-blue {
+
+            0%,
+            100% {
+                background-color: #1a6fa8;
+                box-shadow: 0 0 6px #3498db;
+            }
+
+            50% {
+                background-color: #0a2f4a;
+                box-shadow: none;
+            }
+        }
+
+        @keyframes blink-green {
+
+            0%,
+            100% {
+                background-color: #1a8a4a;
+                box-shadow: 0 0 6px #2ecc71;
+            }
+
+            50% {
+                background-color: #0a3a1a;
+                box-shadow: none;
+            }
+        }
+
+        @keyframes blink-amber {
+
+            0%,
+            100% {
+                background-color: #c47a0a;
+                box-shadow: 0 0 6px #f39c12;
+            }
+
+            50% {
+                background-color: #5a3500;
+                box-shadow: none;
+            }
+        }
+
+        .fetchDataLoading {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .fetchDataLoading p {
+            color: #ffffff;
+            font-size: 12px;
+            margin: 4px 0 0 0;
+            letter-spacing: 1px;
+        }
+
+        .upper,
+        .lower {
+            display: flex;
+            gap: 6px;
+        }
+
+        .upperLeftSquare,
+        .lowerLeftSquare,
+        .upperRightSquare,
+        .lowerRightSquare {
+            width: 20px;
+            height: 20px;
+        }
+
+        .upper,
+        .lower {
+            display: flex;
         }
