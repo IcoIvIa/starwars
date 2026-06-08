@@ -98,8 +98,9 @@ export function useFetchData() {
 
     const [allCharaData, setAllCharaData] = useState([])
     const [allEntityData, setAllEntityData] = useState([])
+    const [isApiLoading, setIsApiLoading] = useState(false)
 
-const isDev = true
+const isDev = false
 useEffect(() => {
     if (isDev) {
         setAllCharaData(dummyData)
@@ -107,6 +108,7 @@ useEffect(() => {
     } else {
 
         //  本番用
+            setIsApiLoading(true) 
             const fetchData = async () => {
                 const [charaData, entityData] = await Promise.all([
                     fetchAllPages(characterApiUrlList),
@@ -117,6 +119,7 @@ useEffect(() => {
                 // fordebug
                 console.log(`allCharaDataresult:${charaData.length}`)
                 console.log(`allentityDataresult:${entityData.length}`)
+                setIsApiLoading(false)
             }
             fetchData()
 
@@ -124,7 +127,7 @@ useEffect(() => {
     
 }, []) //テストデータ <----
 
-return{ allCharaData, allEntityData, }
+return{ allCharaData, allEntityData, isApiLoading}
 
 }
 

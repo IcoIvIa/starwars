@@ -34,6 +34,7 @@ function App() {
         hitCount: 0,
         clickedCharaData: null,
         infoViewTitle: 'INFO VIEW',
+        filteredResult: [],
         translatText: ''
     }
 
@@ -64,26 +65,24 @@ function App() {
                     infoViewTitle: action.title,
                     translatText: ''
                 }
-            case 'TRANSLAT_START':
+            case 'TRANSLATE_START':
                 return {
                     ...state,
                     isLoading: true,
                 }
-            case 'TRANSLAT_DONE':
+            case 'TRANSLATE_DONE':
                 return {
                     ...state,
                     isLoading: false,
                     translatText: action.translatText
                 }
-            case 'TRANSLAT_ERROR':
+            case 'TRANSLATE_ERROR':
                 return {
                     ...state,
                     isLoading: false
                 }
             default:
-                return {
-                    ...state,
-                }
+                return state
         }
     }
 
@@ -113,7 +112,7 @@ function App() {
     }
 
     const handleTranslation = async (description) => {
-        dispatch({ type: 'TRANSLAT_START', })
+        dispatch({ type: 'TRANSLATE_START', })
 
         try {
             const spaceStr = [' ', '　'];
@@ -139,13 +138,13 @@ function App() {
             }
             dispatch({
                 translatText: result,
-                type: 'TRANSLAT_DONE',
+                type: 'TRANSLATE_DONE',
                 isLoading: false
             })
         } catch (error) {
             console.error('データ取得エラー:', error);
             dispatch({
-                type: 'TRANSLAT_ERROR',
+                type: 'TRANSLATE_ERROR',
                 isLoading: false
             })
         }
@@ -234,7 +233,7 @@ function App() {
                                 }
                             />)}
 
-                    <FetchDataLoding />
+                    <FetchDataLoding isApiLoading={isApiLoading}/>
                 </div>
             </div>
         </div>

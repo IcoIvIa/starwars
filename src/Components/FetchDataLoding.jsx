@@ -1,5 +1,5 @@
-function FetchDataLoding({ }) {
-
+function FetchDataLoding({ isApiLoading }) {
+    if (!isApiLoading) return null
     return (
         <div className="fetchDataLoading">
 
