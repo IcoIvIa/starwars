@@ -22,17 +22,6 @@
             padding-top: 20px;
         }
 
-        /*  ローディング中に表示する */
-        body.loading::before {
-            content: "";
-            position: fixed;
-            background-image: url(./loding.gif/warp-space.gif);
-            background-size: cover;
-            background-position: center;
-            opacity: 0.2;
-            z-index: -1;
-        }
-
         /* 星*/
         body::before {
             content: "";
@@ -138,13 +127,6 @@
             animation: shine 2.5s ease-in-out infinite;
         }
 
-        .hidden {
-            display: none;
-        }
-
-        .show {
-            display: block;
-        }
 
         @keyframes shine {
             0% {
@@ -313,11 +295,6 @@
             flex: 1;
         }
 
-        .description {
-            margin-top: 15px;
-            line-height: 1.6;
-            display: none;
-        }
 
         #infoViewTitle {
             position: relative;
@@ -438,20 +415,6 @@
             }
         }
 
-        @keyframes blink-blue {
-
-            0%,
-            100% {
-                background-color: #1a6fa8;
-                box-shadow: 0 0 6px #3498db;
-            }
-
-            50% {
-                background-color: #0a2f4a;
-                box-shadow: none;
-            }
-        }
-
         @keyframes blink-green {
 
             0%,
@@ -462,20 +425,6 @@
 
             50% {
                 background-color: #0a3a1a;
-                box-shadow: none;
-            }
-        }
-
-        @keyframes blink-amber {
-
-            0%,
-            100% {
-                background-color: #c47a0a;
-                box-shadow: 0 0 6px #f39c12;
-            }
-
-            50% {
-                background-color: #5a3500;
                 box-shadow: none;
             }
         }

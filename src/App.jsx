@@ -4,11 +4,13 @@ import FirstText from './Components/firsttext.jsx'
 import SearchingScreen from './Components/SearchingScreen.jsx'
 import SearchEnd from './Components/SearchEnd .jsx'
 import SearchResult from './Components/SearchResult.jsx'
+import SearchNotFound from './Components/SearchNotFound.jsx'
 import CharaBox from './Components/CharaBox.jsx'
 import { useFetchData } from '../src/hooks/useFetchData.js'
 import SearchingImg from './assets/warp-space.gif'
 import TranslationMenu from './Components/TranslationMenu.jsx'
 import FetchDataLoding from './Components/FetchDataLoding.jsx'
+
 
         async function translating(text) {
             const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|ja`;
@@ -223,7 +225,11 @@ function App() {
                             onComplete={() => dispatch({ type: 'SEARCH_DONE', data: state.filteredResult })}
                         />
                     )}
-                    {state.screen === 'results' && state.clickedCharaData === null && <SearchEnd />}
+                    {state.screen === 'results' && state.clickedCharaData === null && (
+                    state.filteredData.length === 0
+                    ? <SearchNotFound />
+                    : <SearchEnd />
+                    )}
 
                     {state.screen === 'results' &&
                         state.clickedCharaData !== null && (

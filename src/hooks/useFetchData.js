@@ -67,7 +67,7 @@ const dummyData = [
     { _id: '050', name: 'Character 50', description: '50......................................................................', image: 'https://lumiere-a.akamaihd.net/v1/images/ep8-231017_r_e829cffb.jpeg' }
 ];
 
-async function fetchAllPages(apiUrlList) {
+async function fetchAllPages(apiUrlList, onPageFetched) {
     const result = []
 
     for (const baseUrl of apiUrlList) {
@@ -86,6 +86,7 @@ async function fetchAllPages(apiUrlList) {
                 hasMore = false
             }
             result.push(...data.data)
+            onPageFetched?.([...result])
             page += 1
 
         }
@@ -111,8 +112,8 @@ useEffect(() => {
             setIsApiLoading(true) 
             const fetchData = async () => {
                 const [charaData, entityData] = await Promise.all([
-                    fetchAllPages(characterApiUrlList),
-                    fetchAllPages(entityApiUrlList)
+                    fetchAllPages(characterApiUrlList, setAllCharaData),
+                    fetchAllPages(entityApiUrlList, setAllEntityData)
                 ])
                 setAllCharaData(charaData)
                 setAllEntityData(entityData)
