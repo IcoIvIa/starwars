@@ -1,16 +1,19 @@
-# React + Vite
+# Star Wars Databank Search
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+スター・ウォーズの登場人物や生物・乗り物・組織などを検索できるReactアプリです。
+複数の外部APIを並行で取得し、キャラクター/エンティティ別に絞り込み検索できます。
 
-Currently, two official plugins are available:
+## 主な機能
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- キーワード検索によるキャラクター(人物・クリーチャー・ドロイド・種族)とエンティティ(場所・組織・乗り物)の絞り込み
+- 複数エンドポイントのページネーションをまとめて取得するカスタムフック(`useFetchData`)
+- 検索結果から個別の詳細情報を表示
+- 詳細説明文(英語)をワンクリックで日本語に自動翻訳する機能
+- `useReducer`による検索〜結果表示〜詳細表示までの画面状態管理
 
-## React Compiler
+## 技術構成
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- データ取得: [Star Wars Databank API](https://starwars-databank-server.onrender.com/)
+- 翻訳: [MyMemory Translation API](https://mymemory.translated.net/)
+- 状態管理: useReducer + カスタムフック

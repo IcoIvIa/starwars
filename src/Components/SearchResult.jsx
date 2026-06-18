@@ -1,6 +1,5 @@
 
 function SearchResult({ clickedCharaData , translatText }){
-    console.log(clickedCharaData)
 
     return(
         <div id="infoViewTextAreaImgFlex" className="infoViewTextArea">
